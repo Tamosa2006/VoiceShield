@@ -10,13 +10,16 @@
 
 ## 🎥 Demo Video
 
-**[▶ Watch the demo here](ADD-YOUR-VIDEO-LINK)**
 
-## 📸 Screenshots
 
-_Add 2 or 3 screenshots here: the dashboard, the results view, and the playbook._
+https://github.com/user-attachments/assets/3340015a-b5ad-4513-b5c5-eaa493b81d22
 
----
+
+
+## 📸 Prompt
+
+<img width="800" height="700" alt="image" src="https://github.com/user-attachments/assets/b65b4a86-267f-4bee-b5e8-f17523222042" />
+
 
 ## The Problem
 
