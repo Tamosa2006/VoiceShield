@@ -1,49 +1,72 @@
-# VoiceShield: AI-Powered Security Incident Investigation Assistant
+# VoiceShield 🛡️ AI-Powered Security Incident Investigation Assistant
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-19.2+-61DAFB?style=flat&logo=react&logoColor=black)](https://react.dev)
-[![Vite](https://img.shields.io/badge/Vite-8.3+-646CFF?style=flat&logo=vite&logoColor=white)](https://vite.dev)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react&logoColor=black)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat&logo=vite&logoColor=white)](https://vite.dev)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 [![SQLite](https://img.shields.io/badge/SQLite-Local_Storage-003B57?style=flat&logo=sqlite&logoColor=white)](https://sqlite.org)
 
-**VoiceShield** is a cybersecurity incident investigation assistant designed for the **HackerHouse Goa shortlisting task**. It transforms raw, chaotic security logs into clear, actionable intelligence within seconds.
+> Built for the **Hacker House Goa** shortlisting task.
 
-Security analysts and developers paste raw security logs (or speak context via voice), and VoiceShield correlates indicators of compromise (IOCs), maps threats to the **MITRE ATT&CK** framework, calculates risk scores, and generates step-by-step mitigation playbooks with an interactive checklist and an AI-spoken voice briefing.
+## 🎥 Demo Video
+
+**[▶ Watch the demo here](ADD-YOUR-VIDEO-LINK)**
+
+## 📸 Screenshots
+
+_Add 2 or 3 screenshots here: the dashboard, the results view, and the playbook._
+
+---
+
+## The Problem
+
+When a company is attacked, its systems produce thousands of log lines. A security analyst has to read them one by one to work out what happened, how serious it is, and what to do next. That is slow, stressful, and easy to get wrong, and the attacker keeps moving while the analyst reads.
+
+## The Solution
+
+**VoiceShield** turns raw security logs into a clear investigation report in seconds. Paste logs (or load a sample incident) and VoiceShield shows:
+
+- the **risk score and severity**
+- the **detected threat type**
+- the **supporting evidence**
+- a **confidence score**
+- **recommended response actions**
+
+If the LLM API is unavailable, a built-in fallback engine keeps the app working, so the demo never breaks.
 
 ---
 
 ## Key Features
 
-1. **Automated Threat Detection & MITRE ATT&CK Mapping**
-   - Accurately classifies multi-stage threats: SSH credential brute-forcing & root privilege escalation, SQL injection exfiltration, AWS IAM abuse, Log4Shell (CVE-2021-44228), and endpoint ransomware activity.
-   - Maps detected behaviors to specific MITRE tactics (e.g. `T1110.001`, `T1190`, `T1078.004`, `T1490`).
+1. **Threat detection with MITRE ATT&CK mapping**
+   - Handles SSH brute force and privilege escalation, SQL injection, AWS IAM abuse, Log4Shell (CVE-2021-44228), and endpoint ransomware.
+   - Maps behaviors to MITRE techniques (for example `T1110.001`, `T1190`, `T1078.004`, `T1490`).
 
-2. **Risk Scoring & Severity Assessment**
-   - Dynamic 0–100 numerical risk gauge and color-coded severity badges (`CRITICAL`, `HIGH`, `MEDIUM`, `LOW`).
-   - Confidence scoring based on telemetry corroboration.
+2. **Risk score and severity**
+   - 0 to 100 risk score with a donut chart breakdown and severity badges (`CRITICAL`, `HIGH`, `MEDIUM`, `LOW`).
+   - Confidence score for each verdict.
 
-3. **Supporting Evidence & Extracted IOCs**
-   - High-speed regex and heuristic extraction of attacker IPv4 addresses, affected accounts, malicious payload signatures, and offending log lines.
+3. **Supporting evidence and IOCs**
+   - Regex and heuristic extraction of attacker IPs, targeted accounts, payload signatures, and the offending log lines.
 
-4. **Recommended Response Playbooks & Interactive Checklist**
+4. **Response playbook**
    - Prioritized containment, investigation, remediation, and hardening steps.
-   - One-click copyable terminal remediation commands (e.g., `iptables -I INPUT -s <IP> -j DROP`, `aws iam update-access-key ...`).
-   - Interactive checkboxes allowing analysts to track triage progress.
+   - One-click copyable commands for each step.
+   - Interactive checklist to track progress.
 
-5. **AI Audio Incident Briefing (TTS Voice Assistant)**
-   - Built-in speech synthesis generates an audio briefing of the security event, tailored for rapid incident triage (inspired by Wispr Flow's voice-first philosophy).
-   - Voice dictation microphone to record spoken analyst notes and hypotheses alongside raw logs.
+5. **Voice Briefing (text-to-speech)**
+   - Listen to a spoken summary of the threat instead of reading the full report.
+   - Voice dictation for analyst notes, inspired by Wispr Flow's voice-first approach.
 
-6. **100% Reliable Offline Fallback Engine**
-   - Supports external LLM providers (**Google Gemini** and **OpenAI**) via `.env`.
-   - **Zero-Friction Fallback**: If no API key is provided or the network is unavailable, VoiceShield's built-in heuristic security engine provides immediate, realistic analysis.
+6. **Reliable fallback engine**
+   - Supports **Google Gemini** and **OpenAI** through `.env`.
+   - With no API key or no network, the built-in rule and regex engine produces the analysis instead. The header shows which engine is active.
 
-7. **Local Incident Vault (SQLite)**
-   - Persistent local database storage for investigations.
-   - Search past incidents, filter by severity, update triage statuses (`New` → `Investigating` → `Contained` → `Resolved`), and reload past telemetry into the console with a single click.
+7. **Incident Vault (SQLite)**
+   - Save investigations, search them, filter by severity, update triage status (`New` → `Investigating` → `Contained` → `Resolved`), and reload them in one click.
 
-8. **Report Export**
-   - One-click export to formatted Markdown or JSON incident reports ready for ticketing or compliance audits.
+8. **Report export**
+   - Export an incident as Markdown or JSON.
 
 ---
 
@@ -52,75 +75,69 @@ Security analysts and developers paste raw security logs (or speak context via v
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    VoiceShield Frontend                     │
-│    (React 19 + Vite + Tailwind CSS + Lucide + Web Speech)   │
-│  - Cyber SOC Dark Theme (Slate/Neon)                        │
-│  - 1-Click Pre-canned Incident Loader (5 Scenarios)         │
-│  - Raw Log Editor with syntax highlighting & line count     │
-│  - Severity Meter (0-100), Threat Badge & Confidence Gauge  │
-│  - MITRE ATT&CK Mapping & Extracted IOCs (IPs, URIs, Users) │
-│  - Interactive Remediation Checklist & Report Exporter      │
-│  - AI Audio Incident Briefing (TTS Voice Assistant)         │
-│  - Incident History & Triage Status Drawer                  │
+│        (React + Vite + Tailwind CSS + GSAP + Web Speech)    │
+│  - SOC-style dark dashboard                                 │
+│  - 1-click sample incident loader (5 scenarios)             │
+│  - Raw log terminal with upload and line count              │
+│  - Risk score donut chart, threat wave chart                │
+│  - MITRE tags, IOCs, remediation playbook, report export    │
+│  - Voice Briefing (TTS) and incident vault table            │
 └──────────────┬──────────────────────────────▲───────────────┘
                │ HTTP / JSON                  │
                ▼                              │
 ┌─────────────────────────────────────────────────────────────┐
 │                    VoiceShield Backend                      │
-│            (FastAPI + Python 3.14 + SQLite3)                │
+│                 (FastAPI + Python + SQLite)                 │
 │  - REST API (/api/analyze, /api/incidents, /api/samples)    │
-│  - Dual Analysis Engine:                                    │
-│      ├── Primary: LLM Analyzer (OpenAI / Gemini / Anthropic)│
-│      └── Fallback: Rule & Regex Security Heuristic Engine   │
-│  - SQLite Database (Local persistence for past incidents)   │
-│  - IOC Extractor (Regex for IPv4, SHA256, CVEs, UserAgents) │
+│  - Dual analysis engine:                                    │
+│      ├── Primary: LLM analyzer (OpenAI / Gemini)            │
+│      └── Fallback: rule and regex heuristic engine          │
+│  - SQLite database for saved incidents                      │
+│  - IOC extractor (IPv4, accounts, signatures)               │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Quick Start (1-Click Run)
+## Quick Start
 
 ### Prerequisites
-- **Python 3.10+** (Python 3.14 fully supported)
-- **Node.js 18+** and `npm`
+- Python 3.10+
+- Node.js 18+ and `npm`
 
-### Windows (1-Click Launcher)
-Double-click `start.bat` or run:
-```cmd
-start.bat
+### 1. Clone the repo
+```bash
+git clone https://github.com/Tamosa2006/VoiceShield.git
+cd VoiceShield
 ```
 
-### Linux / macOS
+### 2. Backend (run from the project root)
 ```bash
-chmod +x start.sh
-./start.sh
-```
-
----
-
-## Manual Step-by-Step Setup
-
-### 1. Backend Setup
-```bash
-cd backend
-python -m pip install -r requirements.txt
+pip install -r backend/requirements.txt
 python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
 ```
-*Backend API docs are accessible at: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)*
+API docs: http://127.0.0.1:8000/docs
+Health check: http://127.0.0.1:8000/api/health
 
-### 2. Frontend Setup
+> Run this from the **project root**, not from inside `backend/`. The backend uses package imports.
+
+### 3. Frontend (second terminal)
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-*Frontend SOC Console will be running at: [http://127.0.0.1:5173/](http://127.0.0.1:5173/)*
+Open http://localhost:5173
+
+### One-click launchers
+- Windows: double-click `start.bat`
+- Linux / macOS: `chmod +x start.sh && ./start.sh`
 
 ---
 
 ## Configuration (`.env`)
 
-VoiceShield works out of the box with zero configuration in Fallback Engine mode. To enable external LLM analysis:
+Copy `.env.example` to `.env` in the project root. VoiceShield works with **no configuration** in fallback mode. To enable live LLM analysis, add a key:
 
 ```env
 # Optional: OpenAI
@@ -132,45 +149,72 @@ GEMINI_API_KEY=AIzaSy...
 GEMINI_MODEL=gemini-1.5-flash
 ```
 
----
-
-## Pre-Packaged Demo Scenarios (1-Click Presets)
-
-VoiceShield includes 5 built-in, realistic security incident log presets for demonstration:
-
-1. **SSH Credential Stuffing & Priv-Escalation**: Multi-IP failed password attempts followed by successful auth as `deploy` and sudo execution.
-2. **SQL Injection & Database Schema Exfiltration**: Web server access logs containing `UNION SELECT`, `information_schema` table dumps, and credential queries.
-3. **AWS CloudTrail IAM Abuse & S3 Exfiltration**: Compromised cloud identity creating backdoor access keys and setting S3 bucket ACL to public read.
-4. **Log4Shell JNDI Exploit (CVE-2021-44228)**: Inbound HTTP headers delivering `${jndi:ldap://...}` payloads.
-5. **Endpoint Ransomware Activity**: PowerShell encoded execution and `vssadmin delete shadows /all /quiet` execution.
+Never commit your real `.env` file.
 
 ---
 
-## API Endpoints Reference
+## How to Use
+
+1. Click a sample scenario card, or click **+ New Incident**, then paste your own logs or upload a `.log` file.
+2. Click **Analyze Log Telemetry Now**.
+3. Review the risk score, threat type, evidence, confidence, and playbook.
+4. Click **Voice Briefing** to hear the summary.
+5. Click **Save** to store the incident in the vault.
+
+## Built-in Demo Scenarios
+
+The logs are simulated and written to resemble real attack patterns. They are not data from real organizations.
+
+1. **SSH Credential Stuffing and Priv-Escalation**: failed passwords, then a successful login as `deploy` and sudo to root.
+2. **SQL Injection and Schema Exfiltration**: `UNION SELECT` and `information_schema` dumps in web logs.
+3. **AWS CloudTrail IAM Abuse**: a backdoor access key and a public S3 bucket policy.
+4. **Log4Shell (CVE-2021-44228)**: `${jndi:ldap://...}` payloads in HTTP headers.
+5. **Endpoint Ransomware**: encoded PowerShell and `vssadmin delete shadows /all /quiet`.
+
+---
+
+## Built with Wispr Flow 🎙️
+
+For this project, I used **Wispr Flow** as my voice-first workflow. I spoke my ideas, feature requests, and bug reports to my AI coding assistant instead of typing long prompts, which helped me go from idea to a working app much faster.
+
+The same idea shaped the product: VoiceShield's **Voice Briefing** lets a busy analyst *listen* to the threat summary instead of reading the whole report.
+
+## AI-Assisted Development
+
+The prompts I used to plan and build this project, and the follow-up prompts used to redesign and fix it, are in **[PROMPTS.md](PROMPTS.md)**.
+
+---
+
+## API Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/health` | Service health, active LLM provider, and SQLite status |
-| `GET` | `/api/samples` | List 5 ready-to-run incident log presets |
-| `POST` | `/api/analyze` | Ingests raw logs & analyst context, returns full investigation findings |
-| `POST` | `/api/incidents` | Persists an investigation to the SQLite incident vault |
-| `GET` | `/api/incidents` | Lists saved incidents with optional search & severity filtering |
-| `GET` | `/api/incidents/{id}` | Retrieves full incident record and analysis telemetry |
-| `PATCH` | `/api/incidents/{id}/status` | Updates triage status (`New`, `Investigating`, `Contained`, `Resolved`) |
-| `DELETE` | `/api/incidents/{id}` | Deletes incident record from SQLite |
+| `GET` | `/api/health` | Service health, active engine, and SQLite status |
+| `GET` | `/api/samples` | List the 5 sample incidents |
+| `POST` | `/api/analyze` | Analyze raw logs and analyst context |
+| `POST` | `/api/incidents` | Save an investigation to SQLite |
+| `GET` | `/api/incidents` | List saved incidents (search and severity filter) |
+| `GET` | `/api/incidents/{id}` | Get a full incident record |
+| `PATCH` | `/api/incidents/{id}/status` | Update triage status |
+| `DELETE` | `/api/incidents/{id}` | Delete an incident |
 
----
+## Testing
 
-## Verification & Testing
-
-To run the automated backend test suite (testing SQLite CRUD, 5 incident scenarios, and fallback reliability):
+Backend tests (SQLite CRUD, the 5 scenarios, and fallback reliability), from the project root:
 
 ```bash
 python -m backend.test_backend
 ```
 
-To verify the frontend build:
+Frontend build check:
+
 ```bash
 cd frontend
 npm run build
 ```
+
+---
+
+## Author
+
+**Tamosa Dey**
